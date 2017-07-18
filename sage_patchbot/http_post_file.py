@@ -35,7 +35,7 @@ def post_multipart(url, fields, files):
                'Content-Length': str(len(body))}
     r = Request(url, body, headers)
     ret = urlopen(r).read()
-    if "error" in ret:
+    if b"error" in ret:
         raise HTTPError(None, "500", ret, None, None) # no clue what the Nones stand for
     return ret
 
