@@ -1421,10 +1421,10 @@ class Patchbot(object):
             # py3 : opens the file, get bytes
             # py2 : opens the file, get str=bytes
             local_log = open(log, 'rb').read()
-            compressed = bz2.compress(local_log)
-            files = [('log', 'log', compressed)]
         else:
-            files = []
+            local_log = b"(no log file)"
+        compressed = bz2.compress(local_log)
+        files = [('log', 'log', compressed)]
         if not dry_run or status == 'Pending':
             print(post_multipart("{}/report/{}".format(self.server,
                                                        ticket['id']),
