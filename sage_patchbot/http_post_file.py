@@ -4,7 +4,7 @@ reference:
 https://code.activestate.com/recipes/146306-http-client-to-post-using-multipartform-data/
 """
 try:
-    from urllib2 import urlopen, Request  # python2
+    from urllib2 import urlopen, Request, HTTPError  # python2
 except ImportError:
     from urllib.request import urlopen, Request  # python3
 
@@ -36,7 +36,7 @@ def post_multipart(url, fields, files):
     r = Request(url, body, headers)
     ret = urlopen(r).read()
     if "error" in ret:
-        raise RuntimeError(ret)
+        raise HttpError(None, "500", error, None, None) # no clue what the Nones stand for
 
 
 def by(utf_string):
