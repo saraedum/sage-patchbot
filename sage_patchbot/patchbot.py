@@ -783,6 +783,7 @@ class Patchbot(object):
             self.write_log('The following tickets will be skipped: ' + s, LOG_MAIN)
         all_tickets = self.load_json_from_server("ticket/?" + query, retry=10)
         all_tickets.reverse() # work around the reversed ordering coming back from the server (newer tickets first!)
+        all_tickets = all_tickets[:256]
 
         # rating for all tickets
         self.delete_log(LOG_RATING)
