@@ -13,7 +13,9 @@ def post_multipart(url, fields, files):
     headers = {'Content-Type': content_type,
                'Content-Length': str(len(body))}
     r = urllib2.Request(url, body, headers)
-    return urllib2.urlopen(r).read()
+    ret = urllib2.urlopen(r).read()
+    if "error" in ret:
+        raise RuntimeError(ret)
 
 def encode_multipart_formdata(fields, files):
     """
