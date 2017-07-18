@@ -36,7 +36,8 @@ def post_multipart(url, fields, files):
     r = Request(url, body, headers)
     ret = urlopen(r).read()
     if "error" in ret:
-        raise HTTPError(None, "500", error, None, None) # no clue what the Nones stand for
+        raise HTTPError(None, "500", ret, None, None) # no clue what the Nones stand for
+    return ret
 
 
 def by(utf_string):
