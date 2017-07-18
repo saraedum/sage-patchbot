@@ -34,7 +34,9 @@ def post_multipart(url, fields, files):
     headers = {'Content-Type': content_type,
                'Content-Length': str(len(body))}
     r = Request(url, body, headers)
-    return urlopen(r).read()
+    ret = urlopen(r).read()
+    if "error" in ret:
+        raise RuntimeError(ret)
 
 
 def by(utf_string):
