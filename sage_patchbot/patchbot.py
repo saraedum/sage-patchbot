@@ -1044,10 +1044,10 @@ class Patchbot(object):
         log = os.path.join(self.log_dir, '{}-log.txt'.format(ticket['id']))
         self.write_log('#{}: init phase'.format(ticket['id']), [LOG_MAIN, LOG_MAIN_SHORT])
         t = Timer()
+        plugins_results = []
         try:
             if not self.config['plugin_only']:
                 self.report_ticket(ticket, status='Pending', log=log)
-            plugins_results = []
             if not self.config['no_banner']:
                 print(self.banner().encode('utf8'))
             botmake = os.getenv('MAKE', "make -j{}".format(self.config['parallelism']))
