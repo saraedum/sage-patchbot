@@ -1043,6 +1043,7 @@ class Patchbot(object):
         print("\n\n")
         log = os.path.join(self.log_dir, '{}-log.txt'.format(ticket['id']))
         self.write_log('#{}: init phase'.format(ticket['id']), [LOG_MAIN, LOG_MAIN_SHORT])
+        t = Timer()
         try:
             if not self.config['plugin_only']:
                 self.report_ticket(ticket, status='Pending', log=log)
@@ -1054,7 +1055,6 @@ class Patchbot(object):
             os.environ['GIT_AUTHOR_NAME'] = os.environ['GIT_COMMITTER_NAME'] = 'patchbot'
             os.environ['GIT_AUTHOR_EMAIL'] = os.environ['GIT_COMMITTER_EMAIL'] = 'patchbot@localhost'
             os.environ['GIT_AUTHOR_DATE'] = os.environ['GIT_COMMITTER_DATE'] = '1970-01-01T00:00:01'
-            t = Timer()
             with Tee(log, time=True, timeout=self.config['timeout'], timer=t):
                 state = 'started'
 
